@@ -1,0 +1,117 @@
+<style>
+</style>
+
+<div id="input">input</div>
+<hr>
+<div id="barang">barang</div>
+<hr>
+<div id="tas">tas</div>
+<div id="tas_item">tas items</div>
+
+<div id="tugas">
+  <ol>
+    <li>buat fungsi tas baru.</li>
+    <li>sesuaikan  tanggal hari ini.</li>
+    <li>sesuaikan  isian total dengan jumlah keseluruhan tas_barang.</li>
+  </ol>
+
+</div>
+
+<script type="text/javascript">
+
+barang=[
+{id:1,nama:'satu',harga:100, banyak:1 },
+{id:2,nama:'dua',harga:200, banyak:2 },
+{id:3,nama:'tiga',harga:300, banyak:3 },
+];
+
+tas=[
+{id:1,tanggal:'2024-01-03',total:100, kasir:'hi'},
+];
+
+tas_barang=[
+{id:1,idtas:1,idbarang:1,nama:'satu',harga:100, banyak:1,jumlah:100},
+{id:2,idtas:1,idbarang:3,nama:'tiga',harga:300, banyak:3,jumlah:900},
+];
+
+
+input=['id','nama','harga','banyak'];
+out=`<form name='frm'>`;
+input.forEach(function myFunction(item,index){
+out += `${item}  <input name=""> <br>`;
+});
+out+=`</form>`;
+
+out += `<button onclick="input()"> input </button>`;
+document.getElementById('input').innerHTML=out;
+
+
+function init(){
+
+out=``;
+barang.forEach(function myFunction(item,index){
+out += `${item.id} | ${item.banyak} | ${item.nama} | ${item.harga} <button onclick="add(${item.id})"> add </button> <br/> `;
+});
+document.getElementById('barang').innerHTML=out;
+
+
+out=` <button onclick="baru()"> baru </button> <button onclick="cetak()"> cetak</button><br>`;
+tas.forEach(function myFunction(item,index){
+out += 'Tanggal:'+item.id + " <br> ";
+out += 'kasir:'+item.id + " <br> ";
+out += 'Kode:'+item.id + " <br> ";
+out += 'Total:'+item.id + " <br> ";
+});
+document.getElementById('tas').innerHTML=out;
+
+out=``;
+out=`<table>`;
+out+=`<tr>
+<td>id tas</td>
+<td>id barang</td>
+<td>banyak barang</td>
+<td>nama barang</td>
+<td>harga barang</td>
+<td>jumlah</td>
+<td>aksi</td>
+</tr>`;
+tas_barang.forEach(function myFunction(item,index){
+  out+=`<tr>
+  <td>${item.idtas}</td>
+  <td>${item.idbarang}</td>
+  <td>${item.banyak}</td>
+  <td>${item.nama}</td>
+  <td>${item.harga}</td>
+  <td>${item.jumlah}</td>
+  <td><button onclick="remove(${index})"> remove </button></td>
+  </tr>`;
+});
+
+out += `</table>`;
+document.getElementById('tas_item').innerHTML=out;
+}
+
+init();
+
+add=function(i){
+item = barang.filter(e => e.id === i);
+tas_barang.push(item[0]);
+init();
+}
+
+input=function(){
+barang.push({
+id:frm.elements[0].value,
+nama:frm.elements[1].value,
+harga:frm.elements[2].value,
+banyak:frm.elements[3].value,
+}
+);
+init();
+}
+
+baru=function(){ alert ('baru')}
+remove=function(i){ tas_barang.splice(i, 1); init();}
+cetak=function(){ window.print();}
+
+</script>
